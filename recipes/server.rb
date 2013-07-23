@@ -22,8 +22,19 @@ postgresql_cluster 'main' do
 end
 
 # Use password with super user to support Opscode Database cookbook providers
+su_password_marker_file = "#{node.postgresql.config_dir}/#{node.postgresql.version}/.super_user_password_set"
+
 bash 'set_super_user_password' do
 	action :run
 	code %Q[psql --command "alter role #{db_super_user['username']} encrypted password '#{db_super_user['password']}';"]
+	not_if "test -f #{su_password_marker_file}"
+	notifies :run, 'bash[create_super_user_password_set_marker]'
 	user db_super_user['username']
+end
+
+# Leave marker so we don't try to do this everytime
+bash 'create_super_user_password_set_marker' do
+	action :nothing
+	code "touch #{su_password_marker_file}"
+	user 'root'
 end

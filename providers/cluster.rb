@@ -4,9 +4,9 @@ def action_create
 		"pg_createcluster #{node.postgresql.version} #{new_resource.name}",
 		"--user #{new_resource.super_user[:username]}",
 		"--datadir #{new_resource.config[:data_directory]}",
-		"--socketdir #{new_resource.config[:unix_socket_directory]}",
+		new_resource.config[:unix_socket_directory] ? "--socketdir #{new_resource.config[:unix_socket_directory]}" : nil,
 		"--start-conf #{new_resource.start}",
-	].join(' ')
+	].compact.join(' ')
 
 	bash "create_#{new_resource.name}_cluster" do
 		code create_cluster_command

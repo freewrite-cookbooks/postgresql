@@ -34,7 +34,9 @@ default.postgresql.config.ssl = true
 default.postgresql.config.ssl_cert_file = '/etc/ssl/certs/ssl-cert-snakeoil.pem'
 default.postgresql.config.ssl_key_file = '/etc/ssl/private/ssl-cert-snakeoil.key'
 default.postgresql.config.timezone = 'UTC'
-default.postgresql.config.unix_socket_directory = '/var/run/postgresql'
+if Chef::VersionConstraint.new('< 9.3').include?(node.postgresql.version)
+  default.postgresql.config.unix_socket_directory = '/var/run/postgresql'
+end
 
 default.postgresql.pg_hba = [
 	{:addr => nil, :db => 'all', :method => 'ident', :type => 'local', :user => 'postgres',},

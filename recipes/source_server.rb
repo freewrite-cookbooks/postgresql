@@ -1,1 +1,1 @@
-raise 'Not yet implemented'
+raise NotImplementedError

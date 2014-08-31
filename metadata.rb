@@ -16,6 +16,7 @@ recipe 'postgresql::server', 'Installs postgresql server using the appropriate i
 recipe 'postgresql::source_client', 'Compiles psql client from source and creates symlinks to compiled binaries.'
 recipe 'postgresql::source_server', 'Not implemented at this time.'
 
+depends 'apt'
 depends 'lib'
 
 supports 'debian'

@@ -1,10 +1,10 @@
 name              'postgresql'
-maintainer        'Freewrite.org'
-maintainer_email  'dev@freewrite.org'
+maintainer        'Danny Guinther'
+maintainer_email  'dannyguinther@gmail.com'
 license           'MIT'
 description       'Postgresql installation, cluster management, and configuration management, for Debian-based systems.'
 long_description  'Postgresql installation, cluster management, and configuration management, for Debian-based systems.'
-version           '1.0.0'
+version           '2.0.0'
 
 recipe 'postgresql', 'Noop'
 recipe 'postgresql::client', 'Installs psql client using the appropriate installation method for the platform.'
